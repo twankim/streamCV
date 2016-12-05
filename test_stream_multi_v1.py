@@ -23,16 +23,16 @@ def main(args):
     seth = args.set_height
     setm = args.set_multi
     
-    cap1 = cv2.VideoCapture(0)
-    cap1.set(cv2.cv.CV_CAP_PROP_FPS,fps_input)
-    face_cascade1 = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
+    cap0 = cv2.VideoCapture(0)
+    cap0.set(cv2.cv.CV_CAP_PROP_FPS,fps_input)
+    face_cascade0 = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 
     if setm:
-        cap2 = cv2.VideoCapture(1)
-        cap2.set(cv2.cv.CV_CAP_PROP_FPS,fps_input)
-        face_cascade2 = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
+        cap1 = cv2.VideoCapture(1)
+        cap1.set(cv2.cv.CV_CAP_PROP_FPS,fps_input)
+        face_cascade1 = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
     
-    ret,frame = cap1.read()
+    ret1,frame1 = cap1.read()
     set_ratio = seth/float(frame.shape[0])
     setw = int(frame.shape[1]*set_ratio)
 
