@@ -41,7 +41,7 @@ def cam_init(cid,fps_input,seth):
             "setw":setw, "detector": face_cascade,
             "w_org":frame.shape[1],"h_org":frame.shape[0]}
 
-def vwriter_init(cid,fps_input,w,h):
+def vwriter_init(cid,out_name,fps_input,w,h):
     if platform == "linux" or platform == "linux2":
         # linux
         fourcc = cv2.cv.CV_FOURCC(*'XVID')
@@ -53,13 +53,14 @@ def vwriter_init(cid,fps_input,w,h):
         fourcc = cv2.cv.CV_FOURCC(*'MJPG')
     else:
         fourcc = cv2.cv.CV_FOURCC(*'MJPG')
-    vout = cv2.VideoWriter('output_{}.mp4'.format(cid), fourcc, float(fps_input), (w,h))
+    vout = cv2.VideoWriter('{}_{}.mp4'.format(out_name,cid), fourcc, float(fps_input), (w,h))
     return vout
 
 def main(args):
     fps_input = args.set_fps
     seth = args.set_height
     setm = args.set_multi
+    out_name = args.out_name
 
     if args.verbose >= 1:
         def vprint( obj ):
@@ -79,7 +80,7 @@ def main(args):
     caps = [cam_init(cid,fps_input,seth) for cid in range(setm)]
 
     if record_on:
-        vwriters = [vwriter_init(cid,fps_input,caps[cid]["w_org"],caps[cid]["h_org"]) for cid in range(setm)]
+        vwriters = [vwriter_init(cid,out_name,fps_input,caps[cid]["w_org"],caps[cid]["h_org"]) for cid in range(setm)]
 
     while(True):
         # Capture frame-by-frame
